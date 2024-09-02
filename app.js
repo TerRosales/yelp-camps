@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const path = require("path");
+const ejsMate = require("ejs-mate");
 const mongoose = require("mongoose");
 const Campground = require("./models/campground.model.js");
 const methodiOverride = require("method-override");
@@ -18,8 +19,10 @@ db.once("open", () => {
   console.log("Database connected");
 });
 
+app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+
 // Takes us to the Home Page
 app.get("/", (req, res) => {
   res.render("home");
